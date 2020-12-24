@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 import SecondComponent from './components/learning-examples/SecondComponent'
 import FirstComponent from './components/learning-examples/FirstComponent'
-import logo from './logo.svg'
+import Counter from './components/counter/Counter'
 import './App.css'
  
 class App extends Component {
   render() {
     return (
       <div className="App">
+          <Counter/>
+      </div>
+    )
+  }
+}
+
+class LearningComponents extends Component {
+  render() {
+    return (
+      <div className="LearningComponents">
           Hello World!
           <FirstComponent></FirstComponent>
           <SecondComponent></SecondComponent>
@@ -15,6 +25,5 @@ class App extends Component {
     )
   }
 }
-
 
 export default App
