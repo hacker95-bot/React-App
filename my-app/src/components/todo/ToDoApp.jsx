@@ -25,8 +25,10 @@ class LoginComponent extends Component{
     render(){
         return(
             <div>
-                <LoginFailureState failureState={this.state.loginFailure}/>
-                <LoginSuccessState successState={this.state.loginSuccess}/>
+                {/* <LoginFailureState failureState={this.state.loginFailure}/> */}
+                {this.state.loginFailure && <div>Login Failed!</div>}
+                {/* <LoginSuccessState successState={this.state.loginSuccess}/> */}
+                {this.state.loginSuccess && <div>Login Successful!</div>}
                 User Name:<input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
                 Password:<input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
                 <button onClick={this.loginClick}>Login</button>
@@ -47,7 +49,7 @@ class LoginComponent extends Component{
         //hard coding authentication
         // console.log(this.state)
         if(this.state.username=='defaultuser' && this.state.password=='dummy'){
-            console.log('Login Successful')
+            // console.log('Login Successful')
             this.setState(
                     {
                         loginSuccess:true,
@@ -66,23 +68,23 @@ class LoginComponent extends Component{
     }
 }
 
-function LoginFailureState(props){
-    if(props.failureState){
-        return <div> Login Failed! </div>
-    }
-    else{
-        return null
-    }
-}
+// function LoginFailureState(props){
+//     if(props.failureState){
+//         return <div> Login Failed! </div>
+//     }
+//     else{
+//         return null
+//     }
+// }
 
-function LoginSuccessState(props){
-    if(props.successState){
-        return <div>Login Successful! </div>
-    }
-    else{
-        return null
-    }
-}
+// function LoginSuccessState(props){
+//     if(props.successState){
+//         return <div>Login Successful! </div>
+//     }
+//     else{
+//         return null
+//     }
+// }
 
 
 
