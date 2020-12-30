@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import SecondComponent from './components/learning-examples/SecondComponent'
 import FirstComponent from './components/learning-examples/FirstComponent'
 import Counter from './components/counter/Counter'
+import ToDoApp from './components/todo/ToDoApp'
 import './App.css'
  
 class App extends Component {
   render() {
     return (
       <div className="App">
-          <Counter/>
+          {/* <Counter/> */}
+          <ToDoApp/>
       </div>
     )
   }
