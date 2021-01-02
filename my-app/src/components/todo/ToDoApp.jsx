@@ -68,7 +68,7 @@ class LoginComponent extends Component{
         //hard coding authentication
         // console.log(this.state)
         if(this.state.username=="defaultuser" && this.state.password=="dummy"){
-            // console.log('Login Successful')
+            this.props.history.push("/welcome")
             this.setState(
                     {
                         loginSuccess:true,
