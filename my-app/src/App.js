@@ -4,6 +4,7 @@ import FirstComponent from './components/learning-examples/FirstComponent'
 import Counter from './components/counter/Counter'
 import ToDoApp from './components/todo/ToDoApp'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
  
 class App extends Component {
   render() {

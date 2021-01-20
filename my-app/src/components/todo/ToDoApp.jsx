@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
 
 class ToDoApp extends Component{
     render(){
@@ -7,9 +7,15 @@ class ToDoApp extends Component{
             <div>
                 <Router>
                     <>
-                        <Route path='/' exact component={LoginComponent}></Route>
-                        <Route path='/login' exact component={LoginComponent}></Route>
-                        <Route path='/welcome' exact component={WelcomeComponent}></Route>
+                        <HeaderComponent/>
+                        <Switch>
+                            <Route path='/' exact component={LoginComponent}></Route>
+                            <Route path='/login' exact component={LoginComponent}></Route>
+                            <Route path='/welcome/:name' exact component={WelcomeComponent}></Route>
+                            <Route path='/todos' exact component={ListTodosComponent}></Route>
+                            <Route component={ErrorComponent}></Route>
+                        </Switch>
+                        <FooterComponent/>  
                     </>
                 </Router>
                 {/* <LoginComponent/>
@@ -19,11 +25,91 @@ class ToDoApp extends Component{
     }
 }
 
+function ErrorComponent(){
+    return(
+    <div>Error Occurred, Contact Support!</div>
+    )
+}
+
+class HeaderComponent extends Component{
+    render(){
+        return(
+            <header>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div><a href="http://www.google.com" className="navbar-brand">defaultuser</a></div>
+                    <ul className="navbar-nav">
+                        <li><Link className="nav-link" to='/welcome/defaultUser'>Home</Link></li>
+                        <li><Link className="nav-link" to='/todos'>todos</Link></li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                        <li><Link className="nav-link" to='/login'>login</Link></li>
+                        <li><Link className="nav-link" to='/logout'>logout</Link></li>
+                    </ul>
+                </nav>
+            </header>
+        )
+    }
+}
+
+class FooterComponent extends Component{
+    render(){
+        return(
+            <div>
+                <hr/> Footer
+            </div>
+        )
+    }
+}
+
+class ListTodosComponent extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            todos : [
+                {id:1 , description : 'Learn React', done: false, targetDate: new Date()},
+                {id:2 , description : 'Learn Spring', done: false, targetDate: new Date()},
+                {id:3 , description : 'Learn Distributed systems', done: false, targetDate: new Date()}
+            ]
+        }
+    }
+
+    render(){
+        return(
+            <div>
+                <h1>List Todos</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>id</th>
+                            <th>description</th>
+                            <th>isCompleted</th>
+                            <th>targetDate</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        {
+                            this.state.todos.map(
+                                todo =>
+                                <tr>
+                                    <td>{todo.id}</td>
+                                    <td>{todo.description}</td>
+                                    <td>{todo.done.toString()}</td>
+                                    <td>{todo.targetDate.toString()}</td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+}
+
 class WelcomeComponent extends Component{
     render(){
         return(
             <div>
-                Welcome Component!
+                Welcome {this.props.match.params.name}! You can manage your todo list <Link to='/todos'>here</Link>.
             </div>
         )
     }
@@ -67,14 +153,8 @@ class LoginComponent extends Component{
     loginClick(){
         //hard coding authentication
         // console.log(this.state)
-        if(this.state.username=="defaultuser" && this.state.password=="dummy"){
-            this.props.history.push("/welcome")
-            this.setState(
-                    {
-                        loginSuccess:true,
-                        loginFailure:false
-                    }
-                )
+        if(this.state.username == "defaultuser" && this.state.password=="dummy"){
+            this.props.history.push(`/welcome/${this.state.username}`)
         }
         else{
             this.setState(
