@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap'
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
 import HeaderComponent from './HeaderComponent'
+import AuthenticatedRoute from './AuthenticatedRoute'
 
 class ToDoApp extends Component{
     render(){
@@ -14,9 +15,9 @@ class ToDoApp extends Component{
                         <Switch>
                             <Route path='/' exact component={LoginComponent}></Route>
                             <Route path='/login' exact component={LoginComponent}></Route>
-                            <Route path='/welcome/:name' exact component={WelcomeComponent}></Route>
-                            <Route path='/todos' exact component={ListTodosComponent}></Route>
-                            <Route path='/logout' exact component={LogoutComponent}></Route>
+                            <AuthenticatedRoute path='/welcome/:name' exact component={WelcomeComponent}></AuthenticatedRoute>
+                            <AuthenticatedRoute path='/todos' exact component={ListTodosComponent}></AuthenticatedRoute>
+                            <AuthenticatedRoute path='/logout' exact component={LogoutComponent}></AuthenticatedRoute>
                             <Route component={ErrorComponent}></Route>
                         </Switch>
                         <FooterComponent/>  
@@ -181,7 +182,7 @@ class LoginComponent extends Component{
     loginClick(){
         //hard coding authentication
         // console.log(this.state)
-        if(this.state.username == "defaultuser" && this.state.password=="dummy"){
+        if(this.state.username === "defaultuser" && this.state.password === "dummy"){
             AuthenticationService.registedSuccessfulLogin(this.state.username,this.state.password)
             this.props.history.push(`/welcome/${this.state.username}`)
         }
