@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Container } from 'react-bootstrap'
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
+import HeaderComponent from './HeaderComponent'
 
 class ToDoApp extends Component{
     render(){
@@ -34,25 +35,28 @@ function ErrorComponent(){
     )
 }
 
-class HeaderComponent extends Component{
-    render(){
-        return(
-            <header>
-                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a href="http://www.google.com" className="navbar-brand">defaultuser</a></div>
-                    <ul className="navbar-nav">
-                        <li><Link className="nav-link" to='/welcome/defaultUser'>Home</Link></li>
-                        <li><Link className="nav-link" to='/todos'>todos</Link></li>
-                    </ul>
-                    <ul className="navbar-nav navbar-collapse justify-content-end">
-                        <li><Link className="nav-link" to='/login'>login</Link></li>
-                        <li><Link className="nav-link" to='/logout' onClick={AuthenticationService.logout}>logout</Link></li>
-                    </ul>
-                </nav>
-            </header>
-        )
-    }
-}
+// class HeaderComponent extends Component{
+//     render(){
+//         const isUserLoggedIn = AuthenticationService.isUserLoggedIn()
+//         console.log(isUserLoggedIn)
+//         console.log("Header")
+//         return(
+//             <header>
+//                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+//                     <div><a href="http://www.google.com" className="navbar-brand">defaultuser</a></div>
+//                     <ul className="navbar-nav">
+//                         <li><Link className="nav-link" to='/welcome/defaultUser'>Home</Link></li>
+//                         <li><Link className="nav-link" to='/todos'>todos</Link></li>
+//                     </ul>
+//                     <ul className="navbar-nav navbar-collapse justify-content-end">
+//                         <li><Link className="nav-link" to='/login'>login</Link></li>
+//                         <li><Link className="nav-link" to='/logout' onClick={AuthenticationService.logout}>logout</Link></li>
+//                     </ul>
+//                 </nav>
+//             </header>
+//         )
+//     }
+// }
 
 class FooterComponent extends Component{
     render(){
@@ -107,7 +111,7 @@ class ListTodosComponent extends Component{
                             {
                                 this.state.todos.map(
                                     todo =>
-                                    <tr>
+                                    <tr key={todo.id}>
                                         <td>{todo.id}</td>
                                         <td>{todo.description}</td>
                                         <td>{todo.done.toString()}</td>
