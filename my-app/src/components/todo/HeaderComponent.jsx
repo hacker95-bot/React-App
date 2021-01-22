@@ -12,7 +12,6 @@ we used withRouter to make headerComponent render whever any route is accessed t
 class HeaderComponent extends Component{
     render(){
         const isUserLoggedIn = AuthenticationService.isUserLoggedIn()
-        console.log(isUserLoggedIn)
         return(
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
